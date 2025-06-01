@@ -7,7 +7,7 @@ const Auth = ({children}) => {
   const user = useSelector((state)=>state.auth.user);
 
   if(!user){
-    return <Navigate to="/auth" replace />
+    return <Navigate to="/auth/singUp" replace />
   }
 
   return (

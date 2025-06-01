@@ -6,14 +6,19 @@ export {
 
 
 // components
+   //Buttons
+      import { BlueBtn, IconBtn, } from '../components';
+      export {
+        BlueBtn,
+        IconBtn,
+        Loader,
+      }
+   //Loader
+      import { Loader } from "../components";
+      export{
+        Loader
+      }
 
-    // notifier
-       import { NotifierProvider, useNotifier, NotifierList } from '../components/index';
-       export {
-           NotifierProvider,
-           useNotifier,
-           NotifierList
-       }
 
 
 // hooks 
@@ -29,12 +34,13 @@ export {
 
 
 // styles
-import { ThemeProvider } from '../styles/Themes/Theme';
-import { useTheme } from '../styles/Themes/Theme';
-export {
-    ThemeProvider,
-    useTheme,
-}
+   //Themes
+      import { ThemeProvider } from '../styles/Themes/Theme';
+      import { useTheme } from '../styles/Themes/Theme';
+      export {
+          ThemeProvider,
+          useTheme,
+      }
 
 
 // toolkit
@@ -48,6 +54,19 @@ export {
 
 
 // views
+   //auth-page
+      import SingUp from '../views/auth/SingUp';
+      import Login from '../views/auth/Login';
+      import Otp from '../views/auth/Otp';
+      import GetResetOtp from '../views/auth/GetResetOtp';
+      import ResetPass from '../views/auth/ResetPass';
+      export {
+        SingUp,
+        Login,
+        Otp,
+        GetResetOtp,
+        ResetPass,
+      }
 
 
 // temp 
