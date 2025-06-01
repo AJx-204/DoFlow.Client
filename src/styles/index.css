@@ -1,2 +1,21 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
+
+*{
+    font-family: "Inter",  sans-serif;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(-100%) translateY(-20%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0) translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slideIn {
+  animation: slideIn 0.5s ease forwards;
+}

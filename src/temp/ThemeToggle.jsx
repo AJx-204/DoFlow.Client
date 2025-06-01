@@ -13,7 +13,7 @@ const ThemeToggle = () => {
     theme === "light" ? darkTheme() : lightTheme();
     setTimeout(() => {
       setSwitching(false);
-    }, 200); 
+    }, 100); 
   };
 
 
