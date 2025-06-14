@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { useNotifier } from "../../global";
 
 
 const ThemeContext = createContext();
@@ -6,6 +7,7 @@ const ThemeContext = createContext();
 export const ThemeProvider = ({children}) => {
 
     const [theme, setTheme] = useState(localStorage.getItem("theme") || "light")
+    const { addMessage } = useNotifier();
 
     const lightTheme = () => {
       if(theme == 'light') return
@@ -14,6 +16,7 @@ export const ThemeProvider = ({children}) => {
       localStorage.setItem("theme", newTheme);
       document.documentElement.classList.remove("light", "dark");
       document.documentElement.classList.add(newTheme);
+      addMessage('Light Theme added !', 'info')
     };
     
     const darkTheme = () => {
@@ -23,6 +26,7 @@ export const ThemeProvider = ({children}) => {
       localStorage.setItem("theme", newTheme);
       document.documentElement.classList.remove("light", "dark");
       document.documentElement.classList.add(newTheme);
+      addMessage('Dark Theme added !', 'info')
     };
         
     useEffect(() => {

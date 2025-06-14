@@ -3,15 +3,19 @@ import { BrowserRouter } from 'react-router-dom'
 import './styles/index.css'
 import App from './App.jsx'
 import { Provider } from 'react-redux';
-import { store, ThemeProvider, } from './global/index.js'
+import { NotifierProvider, store, ThemeProvider, UIStateProvider } from './global/index.js'
 
 
 createRoot(document.getElementById('root')).render(
     <BrowserRouter>
       <Provider store={store}>
-          <ThemeProvider>
-            <App />
-          </ThemeProvider>
+        <NotifierProvider>
+          <UIStateProvider>
+            <ThemeProvider>
+                <App />  
+            </ThemeProvider>
+          </UIStateProvider>
+        </NotifierProvider>
       </Provider>
     </BrowserRouter>
 )

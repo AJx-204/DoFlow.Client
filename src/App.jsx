@@ -1,9 +1,34 @@
-import React from 'react'
-import { Route, Routes } from 'react-router-dom';
-import { AppLayout, Auth, AuthLayout, ThemeToggle } from './global';
+import React, { useEffect } from 'react'
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import { AppLayout, AppLoader, Auth, AuthLayout, NotifierList, ThemeToggle, useGetUser } from './global';
+import { useSelector } from 'react-redux';
 
 
 const App = () => {
+
+  const getUser = useGetUser();
+
+  const navigate = useNavigate();
+
+  const { user , appLoading } = useSelector(state => state.auth)
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const success = await getUser();
+      if(success){
+        navigate(`/profile/${user?.userName}`)
+      }
+    };
+    fetchUser();
+  }, []);
+
+  if(appLoading){
+    return (
+      <div className='flex items-center justify-center w-full h-screen bg-zinc-50 dark:bg-zinc-900'>
+        <AppLoader className='text-xl'/>
+      </div>
+    )
+  }
 
   return (
     <>
@@ -21,7 +46,7 @@ const App = () => {
           }
         />
      </Routes>
-     <ThemeToggle/>
+     <NotifierList className='right-5 top-5'/>
     </>
   )
 

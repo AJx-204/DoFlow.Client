@@ -1,14 +1,14 @@
 import React from 'react';
 
 const Loader = ({
-  size = '22px',
+  size = '16px',
   borderSize = '2px',
-  color = 'border-gray-500', 
+  boardeColor = 'border-gray-500', 
 }) => {
     
   return (
     <div
-      className={`animate-spin rounded-full border-t-transparent bg-transparent ${color}`}
+      className={`animate-spin rounded-full border-t-transparent bg-transparent ${boardeColor}`}
       style={{
         width: size,
         height: size,
