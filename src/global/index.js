@@ -68,7 +68,7 @@ export {
 
 // hooks 
    //auth
-      import { useLogin, useGetUser, useLogout, useVerifyOtp, useResendOtp, useSingUp } from "../hooks";
+      import { useLogin, useGetUser, useLogout, useVerifyOtp, useResendOtp, useSingUp, useGetResetPassOtp, useResetPassword,  } from "../hooks";
       export {
         useLogin,
         useGetUser,
@@ -76,6 +76,8 @@ export {
         useVerifyOtp,
         useResendOtp,
         useSingUp,
+        useGetResetPassOtp,
+        useResetPassword,
       }
 
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { setUser, setErrorMessage, setAuthLoading, useNotifier, Otp } from '../../global'
+import { setUser, setErrorMessage, setAuthLoading, useNotifier, } from '../../global'
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 

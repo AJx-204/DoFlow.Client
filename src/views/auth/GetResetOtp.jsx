@@ -1,17 +1,27 @@
-import React from 'react'
+import React, { use } from 'react'
 import { useForm } from 'react-hook-form'
-import { BlueBtn, Input, Logo } from '../../global'
+import { BlueBtn, Input, Logo, useGetResetPassOtp, setErrorMessage } from '../../global'
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 const GetResetOtp = () => {
 
   const { register, handleSubmit, formState:{errors} } = useForm();
 
+  const dispatch = useDispatch();
+
+  const { authLoading, errorMessage } = useSelector(state => state.auth)
+
+  const getResetPassOtp = useGetResetPassOtp();
+
   const navigator = useNavigate();
 
-  const handleGetOtp = (data) => {
-      console.log(data)
+  const handleGetOtp = async (data) => {
+     const success = await getResetPassOtp(data)
+     if(success){
       navigator('/auth/setNewPassword')
+      dispatch(setErrorMessage(''))
+     }
   };
 
   return (
@@ -51,8 +61,13 @@ const GetResetOtp = () => {
                    {errors.email.message}
                   </span>
                 }
+                {errorMessage && 
+                 <span className='text-red-500 text-xs m-1'>
+                   {errorMessage}
+                  </span>
+                }
                  <div className='flex items-center justify-center mt-5'>
-                   <BlueBtn className='apple' text='Get Otp'/>
+                   <BlueBtn isLoading={authLoading} className='apple' text='Get Otp'/>
                  </div>
             </form>
         </div>

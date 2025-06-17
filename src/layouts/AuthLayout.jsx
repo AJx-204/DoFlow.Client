@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom';
-import { SingUp, Login, Otp, GetResetOtp, ResetPass } from '../global';
+import { SingUp, Login, Otp, GetResetOtp, ResetPass, ThemeToggle } from '../global';
 
 
 const AuthLayout = () => {
@@ -17,6 +17,7 @@ const AuthLayout = () => {
               <Route path='getResetOtp' element={<GetResetOtp/>}/>
               <Route path='setNewPassword' element={<ResetPass/>}/>
           </Routes>
+          <ThemeToggle/>
       </main>
     </>
   )

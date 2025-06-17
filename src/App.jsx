@@ -16,7 +16,7 @@ const App = () => {
     const fetchUser = async () => {
       const success = await getUser();
       if(success){
-        navigate(`/profile/${user?.userName}`)
+        navigate(`/profile/${success}`)
       }
     };
     fetchUser();

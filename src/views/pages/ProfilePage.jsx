@@ -6,13 +6,14 @@ import { SquareCheckBig, Palette, Sun, Moon, LogOut, FolderKanban, CornerDownRig
 import { HiUsers } from "react-icons/hi2";
 import { PiMicrosoftTeamsLogoFill } from "react-icons/pi";
 import { useTheme }  from '../../styles/Themes/Theme';
-import { IconBtn } from '@/global';
+import { IconBtn, useLogout } from '@/global';
 import { BsFillUnlockFill } from "react-icons/bs";
 import { BsArrowCounterclockwise } from "react-icons/bs";
 import { CgDanger } from "react-icons/cg";
 import { CiUser } from 'react-icons/ci';
 import { FiEdit } from "react-icons/fi";
 import { GoProjectSymlink } from "react-icons/go";
+import { useNavigate } from 'react-router-dom';
 
 const ProfilePage = () => {
 
@@ -20,7 +21,9 @@ const ProfilePage = () => {
 
   const { lightTheme, darkTheme } = useTheme();
 
-  console.log(user)
+  const navigator = useNavigate();
+
+  const logout = useLogout();
 
   return (
     <div className='p-6'>
@@ -127,7 +130,7 @@ const ProfilePage = () => {
                 <span>  If you forgot your password, don't worry. You can reset it securely using an OTP sent to your registered email. Click the button below to start the reset process .</span>
                 <div className='flex'>
                    <CornerDownRight className='text-zinc-500' strokeWidth={1}/>
-                   <IconBtn icon={<BsArrowCounterclockwise size={19}/>} text='Reset password' className='text-sm px-3 py-2 hover:bg-blue-500/15 rounded-md text-blue-500 max-w-[max-content]'/>
+                   <IconBtn onClick={()=>navigator('/auth/getResetOtp')} icon={<BsArrowCounterclockwise size={19}/>} text='Reset password' className='text-sm px-3 py-2 hover:bg-blue-500/15 rounded-md text-blue-500 max-w-[max-content]'/>
                 </div>
                 </div>
           </div>
@@ -141,7 +144,7 @@ const ProfilePage = () => {
                 <span> You are about to log out of your account. If you continue, you'll need to sign-In again to access your DoFlow account.</span>
                <div className='flex '>
                    <CornerDownRight className='text-zinc-500' strokeWidth={1}/>
-                   <IconBtn icon={<LogOut size={18} className='rotate-180'/>} text='Logout' className='text-sm px-3 py-2 hover:bg-red-500/15 rounded-md text-red-500 max-w-[max-content]'/>
+                   <IconBtn onClick={logout} icon={<LogOut size={18} className='rotate-180'/>} text='Logout' className='text-sm px-3 py-2 hover:bg-red-500/15 rounded-md text-red-500 max-w-[max-content]'/>
                </div>
              </div>
           </div>

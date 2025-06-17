@@ -1,19 +1,29 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useHotkey, useUIState, InfoIcon, useLogout, OrgSelect, IconBtn, ProfileIcon } from '../../global';
 import { PanelLeftClose, PanelLeftOpen, } from 'lucide-react'
 import { useSelector } from 'react-redux';
-import { LogOut } from 'lucide-react'
-
 
 const SideBar = () => {
 
   const {isSidebarOpen, setIsSidebarOpen} = useUIState();
-
+  const sidebarRef = useRef();
+  
   const { user } = useSelector(state => state.auth)
 
   useHotkey('shift+s', ()=>setIsSidebarOpen(prev => !prev))
 
-  const logOut = useLogout();
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setIsSidebarOpen(false);
+      } else {
+        setIsSidebarOpen(true)
+      }
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <>
@@ -27,7 +37,7 @@ const SideBar = () => {
      />
     </div>
     
-     <div className={`fixed top-0 left-0 h-screen w-60 bg-zinc-200 dark:bg-[#1c1c1c] border-r-2 border-zinc-500/10
+     <div ref={sidebarRef} className={`fixed top-0 left-0 h-screen w-60 bg-zinc-200 dark:bg-[#1c1c1c] border-r-2 border-zinc-500/10
        ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full opacity-0'} 
        smooth`}
       >

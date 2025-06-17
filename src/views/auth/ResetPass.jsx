@@ -1,13 +1,30 @@
-import React from 'react'
-import { useForm } from 'react-hook-form'
-import { BlueBtn, Input, Logo } from '../../global'
+import React, { useState } from 'react'
+import { BlueBtn, Input, Logo, setErrorMessage, useResetPassword } from '../../global'
+import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
+import { REGEXP_ONLY_DIGITS_AND_CHARS } from 'input-otp';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const ResetPass = () => {
 
-  const { register, handleSubmit, formState:{errors} } = useForm();
+  const { user, errorMessage, authLoading } = useSelector(state => state.auth)
 
-  const handleResetPassword = (data) => {
-      console.log(data)
+  const resetPassword = useResetPassword();
+
+  const dispatch = useDispatch();
+
+  const navigator = useNavigate();
+
+  const [otp, setOtp] = useState(''); 
+  const [password, setPassword] = useState('')
+
+  const handleSubmit = async (e) => {
+     e.preventDefault();
+      const success = await resetPassword( otp, password, user?.userEmail);
+      if(success){
+        navigator('/auth/login')
+        dispatch(setErrorMessage(''))
+      }
   };
 
   return (
@@ -23,26 +40,22 @@ const ResetPass = () => {
               </span>
             </div>
             <form
-             onSubmit={handleSubmit(handleResetPassword)}
+             onSubmit={handleSubmit}
              className='flex flex-col gap-3 mt-2'>
-               <Input
-                className='flex flex-col gap-0.5'
-                label='OTP' 
-                labelClassName='text-xs font-medium ml-1'
-                inputClassName='text-sm border border-zinc-500/20 bg-zinc-500/5 rounded-md p-2 placeholder:text-zinc-500/50 placeholder:text-sm focus:bg-blue-500/5 focus:border-blue-500/20'
-                placeholder='Enter email here . . . '
-                type='number'
-                id='otp'
-                required={true}
-                {...register('otp', {
-                  required: 'otp is required',
-                })}
-                />
-                {errors.otp && 
-                  <span className='text-red-500 text-xs m-1'>
-                   {errors.otp.message}
-                  </span>
-                }
+               <div>
+               <label htmlFor='otp' className='text-xs'>OTP</label>
+                  <InputOTP  id='otp' maxLength={6} value={otp} onChange={setOtp} pattern={REGEXP_ONLY_DIGITS_AND_CHARS}>
+                    <InputOTPGroup>
+                      <InputOTPSlot index={0}/>
+                      <InputOTPSlot index={1}/>
+                      <InputOTPSlot className={'border-l'} index={2}/>
+                      <InputOTPSlot index={3}/>
+                      <InputOTPSlot className={'border-l'} index={4}/>
+                      <InputOTPSlot index={5}/>
+                    </InputOTPGroup>
+                  </InputOTP>
+               </div>
+               
                <Input
                 className='flex flex-col gap-0.5'
                 label='New password' 
@@ -52,21 +65,15 @@ const ResetPass = () => {
                 type='text'
                 id='password'
                 required={true}
-                {...register('password', {
-                  required: 'password is required',
-                  minLength:{
-                    value: 4,
-                    message: 'Password must be at least 4 characters',
-                  }
-                })}
+                onChange={(e)=>setPassword(e.target.value)}
                 />
-                {errors.password && 
-                  <span className='text-red-500 text-xs m-1'>
-                   {errors.password.message}
-                  </span>
-                }
+                { errorMessage && (
+                   <span className='text-red-500 text-xs'>
+                       { errorMessage}
+                   </span>
+                )}
                  <div className='flex items-center justify-center mt-5'>
-                   <BlueBtn className='apple' text='Change Password '/>
+                   <BlueBtn isLoading={authLoading} className='apple' text='Change Password '/>
                  </div>
             </form>
         </div>

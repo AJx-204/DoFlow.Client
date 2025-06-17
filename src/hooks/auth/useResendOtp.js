@@ -14,7 +14,7 @@ const useResendOtp = () => {
                 return true;
             }
         } catch (error) {
-            dispatch(setErrorMessage(error.response?.data?.message || 'Verification failed !'))
+            dispatch(setErrorMessage(error.response?.data?.message || 'otp resend failed !'))
             return false;
         } finally {
             dispatch(setAuthLoading(false))

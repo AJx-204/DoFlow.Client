@@ -11,7 +11,7 @@ const Otp = () => {
 
   const [ canResend, setCanResend ] = useState(true)
 
-   const [otp, setOtp] = useState('');
+  const [otp, setOtp] = useState('');
 
   const { user, authLoading, errorMessage } = useSelector(state => state.auth)
 
