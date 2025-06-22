@@ -13,6 +13,10 @@ import AppLoader from "./ui/Loader/AppLoader";
 import OrgSelect from "./view/sidebar/OrgSelect";
 import ProfileIcon from "./view/sidebar/ProfileIcon";
 import ProfilePopup from "./view/profile/ProfilePopup";
+import UpdateUser from "./view/profile/UpdateUser";
+import TeamMenu from "./view/sidebar/TeamMenu";
+import ProjectMenu from "./view/sidebar/ProjectMenu";
+import AvatarGroup from "./view/membersList/AvatarGroup";
 
 export {
     BlueBtn,
@@ -30,4 +34,8 @@ export {
     OrgSelect,
     ProfileIcon,
     ProfilePopup,
+    UpdateUser,
+    TeamMenu,
+    ProjectMenu,
+    AvatarGroup,
 }

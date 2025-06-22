@@ -8,9 +8,9 @@ import { IoIosCloseCircle } from "react-icons/io";
 
 
 const toastColors = {
-  success: 'bg-green-200 text-green-600 border-green-500/30',
-  error: 'bg-red-200 text-red-600 border-red-500/30',
-  info: 'bg-blue-200 text-[#2196F3] border-blue-500/30',
+  success: 'bg-green-100 text-green-600 border-green-500/30',
+  error: 'bg-red-100 text-red-600 border-red-500/30',
+  info: 'bg-blue-100 text-blue-600 border-blue-500/30',
   warning: 'bg-yellow-100 text-yellow-600 border-yellow-500/30',
 };
 
@@ -26,7 +26,7 @@ const { messages, removeMessage, pauseTimer, resumeTimer } = useNotifier();
       {messages.map(({ id, text, type }) => (
         <div
           key={id}
-          className={`text-sm flex items-center group justify-between p-3 pr-5 rounded-lg shadow-md border ${toastColors[type] || toastColors.info} slideIn`}
+          className={`text-sm flex items-center group justify-between p-3 pr-5 rounded inter shadow-md border ${toastColors[type] || toastColors.info} slideIn`}
           role="alert"
           onMouseEnter={() => pauseTimer(id)}
           onMouseLeave={() => resumeTimer(id)}

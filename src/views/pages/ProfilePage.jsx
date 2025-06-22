@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { SlOrganization } from "react-icons/sl";
 import { TbBuildingSkyscraper } from "react-icons/tb";
@@ -6,7 +6,7 @@ import { SquareCheckBig, Palette, Sun, Moon, LogOut, FolderKanban, CornerDownRig
 import { HiUsers } from "react-icons/hi2";
 import { PiMicrosoftTeamsLogoFill } from "react-icons/pi";
 import { useTheme }  from '../../styles/Themes/Theme';
-import { IconBtn, useLogout } from '@/global';
+import { IconBtn, UpdateUser, useLogout } from '@/global';
 import { BsFillUnlockFill } from "react-icons/bs";
 import { BsArrowCounterclockwise } from "react-icons/bs";
 import { CgDanger } from "react-icons/cg";
@@ -15,9 +15,12 @@ import { FiEdit } from "react-icons/fi";
 import { GoProjectSymlink } from "react-icons/go";
 import { useNavigate } from 'react-router-dom';
 
+
 const ProfilePage = () => {
 
   const { user } = useSelector(state => state.auth);
+
+  const [showUpdateUserPopup, setShowUpdateUserPopup] = useState(null)
 
   const { lightTheme, darkTheme } = useTheme();
 
@@ -36,7 +39,7 @@ const ProfilePage = () => {
            <div className='flex items-center justify-center overflow-hidden w-20 h-20 bg-slate-200 dark:bg-zinc-950 rounded-full -ml-1'>
              {user.profilePhoto ? <img className='h-full w-full object-cover' src={user.profilePhoto} alt={user.userName} /> : <CiUser size={30}/>}
            </div>
-           <i
+           <i onClick={()=>setShowUpdateUserPopup(true)}
             className='self-end p-1 mb-1 bg-zinc-500/10 rounded hover:text-blue-500 text-zinc-500 hover:border-blue-500/40 border border-zinc-500/15'>
               <FiEdit/>
            </i>
@@ -149,6 +152,7 @@ const ProfilePage = () => {
              </div>
           </div>
        </div>
+       {showUpdateUserPopup && <UpdateUser setShowUpdateUserPopup={setShowUpdateUserPopup}/>}
     </div>
   )
 }

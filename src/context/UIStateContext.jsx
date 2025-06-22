@@ -7,10 +7,16 @@ const UIStateContext = createContext();
 export const UIStateProvider = ({children}) => {
 
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const [membersShowInList, setMembersShowInList] = useState(true)
 
     const value = {
+
        isSidebarOpen,
        setIsSidebarOpen,
+
+       membersShowInList,
+       setMembersShowInList,
+
     }
 
     return (

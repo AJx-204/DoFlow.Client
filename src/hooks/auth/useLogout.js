@@ -1,13 +1,14 @@
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { setUser, setAuthLoading, setErrorMessage, useNotifier } from '../../global'
+import { setUser, setAuthLoading, setErrorMessage, useNotifier, useOrgId, setOrg } from '../../global'
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const useLogout = () => {
     const dispatch = useDispatch();
     const { addMessage } = useNotifier();
-    const logout = async (data) => {
+    // const { setOrgId } = useOrgId();
+    const logout = async () => {
         dispatch(setAuthLoading(true))
         try {
             const res = await axios.post(`${backendUrl}/auth/logout`, {}, {
@@ -16,6 +17,9 @@ const useLogout = () => {
             if(res.data){
                 dispatch(setUser(null))
                 addMessage('Logout successfuly !', 'success')
+                localStorage.removeItem('orgId')
+                setOrgId(null)
+                dispatch(setOrg(null))
                 return true;
             }
             addMessage('Logout failed !', 'error')

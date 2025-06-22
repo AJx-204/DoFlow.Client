@@ -2,7 +2,7 @@
 import Auth from '../auth/Auth';
 export {
   Auth,
-}
+};
 
 
 // components
@@ -15,60 +15,71 @@ export {
            IconBtn,
            FlatIcon,
            InfoIcon,
-         }
+         };
       //Inputs
          import { Input, FileInput, TextArea} from "../components";
          export {
            Input,
            FileInput,
            TextArea,
-         }
+         };
       //Loader
          import { Loader, DotLoader, AppLoader } from "../components";
          export {
            Loader,
            DotLoader,
            AppLoader,
-         }
+         };
       //Logo 
          import { Logo } from "../components";
          export {
            Logo,
-         }
+         };
    //view
+      //membersList
+        import { AvatarGroup } from '../components';
+        export {
+          AvatarGroup,
+        }
+      //profile
+         import { ProfilePopup, UpdateUser } from "../components";  
+         export {
+          ProfilePopup,
+          UpdateUser,
+         } ;
       //sidebar
-         import { OrgSelect, ProfileIcon, } from "../components";
+         import { OrgSelect, ProfileIcon, TeamMenu, ProjectMenu } from "../components";
          export{
            OrgSelect,
            ProfileIcon,
-         }
-      //profile
-         import { ProfilePopup } from "../components";  
-         export {
-          ProfilePopup,
-         } 
-
+           TeamMenu,
+           ProjectMenu,
+         };
+      
 
 // context
    //Notifier
       import { NotifierProvider, useNotifier } from "../context/Notifier/context/NotifierContext";
       import  NotifierList  from '../context/Notifier/NotifierList'
+      
       export {
          NotifierProvider,
          useNotifier,
          NotifierList,
-      }
+      };
 import { UIStateProvider } from '../context/UIStateContext';
 import { useUIState } from '../context/UIStateContext';
+import { useOrgId } from '../context/OrgIdContext'
 export {
   UIStateProvider,
-  useUIState
-}
+  useUIState,
+  useOrgId,
+};
 
 
 // hooks 
    //auth
-      import { useLogin, useGetUser, useLogout, useVerifyOtp, useResendOtp, useSingUp, useGetResetPassOtp, useResetPassword,  } from "../hooks";
+      import { useOrg, useLogin, useGetUser, useLogout, useVerifyOtp, useResendOtp, useSingUp, useGetResetPassOtp, useResetPassword, useUpadteUser } from "../hooks";
       export {
         useLogin,
         useGetUser,
@@ -78,7 +89,9 @@ export {
         useSingUp,
         useGetResetPassOtp,
         useResetPassword,
-      }
+        useUpadteUser,
+        useOrg,
+      };
 
 
 // layouts 
@@ -87,7 +100,7 @@ import AppLayout from '../layouts/AppLayout'
 export {
   AuthLayout,
   AppLayout
-}
+};
 
 
 // styles
@@ -97,33 +110,57 @@ export {
       export {
           ThemeProvider,
           useTheme,
-      }
+      };
 
 
 // toolkit
    //Slice
-      import { setUser, setAuthLoading, logoutUser, setErrorMessage, setResMessage, setAppLoading } from "../toolkit/slice/authSlice";
-      export {
-        setUser,
-        setAuthLoading,
-        logoutUser,
-        setErrorMessage, 
-        setResMessage,
-        setAppLoading,
-      }
+      //authSlice
+        import { setUser, setAuthLoading, logoutUser, setErrorMessage, setResMessage, setAppLoading, updateUserProfile, } from "../toolkit/slice/authSlice";
+        export {
+          setUser,
+          setAuthLoading,
+          logoutUser,
+          setErrorMessage, 
+          setResMessage,
+          setAppLoading,
+          updateUserProfile,
+        };
+      //orgSlice
+        import { setOrg, setOrgLoading, setOrgErrorMessage, setOrgResMessage } from "../toolkit/slice/orgSlice";
+        export {
+          setOrg,
+          setOrgLoading,
+          setOrgErrorMessage,
+          setOrgResMessage,
+        };
+      //teamSlice
+        import { setTeam } from '@/toolkit/slice/teamSlice';
+        export {
+          setTeam,
+        };
+      //projectSlice
+        import { setProject } from "@/toolkit/slice/projectSlice";
+        export {
+          setProject,
+        };
 import store from '../toolkit/store'
 export {
   store
-}
+};
 
 
 // utils
 import { useHotkey } from '../utils/ShortCuts';
 import { useClickOutside } from '../utils/ClickOutSied'
+import { GetRoleColor } from '../utils/GetRoleColor'
+import { formatDate } from '../utils/formatDate'
 export {
   useHotkey,
   useClickOutside,
-}
+  GetRoleColor,
+  formatDate,
+};
 
 
 // views
@@ -139,23 +176,29 @@ export {
         Otp,
         GetResetOtp,
         ResetPass,
-      }
+      };
    //navigation
       import SideBar from '../views/navigation/SideBar';
       import TopBar from '../views/navigation/TopBar';
       export {
         SideBar,
         TopBar,
-      }
+      };
    //pages
-      import  ProfilePage  from "../views/pages/ProfilePage";  
+      import  ProfilePage  from "../views/pages/ProfilePage"; 
+      import OrgMemberPage from '@/views/pages/OrgMemberPage'; 
+      import TeamMemberPage from '@/views/pages/TeamMemberPage';
+      import ProjectPage from '@/views/pages/ProjectPage';
       export {
-        ProfilePage
-      }
+        ProfilePage,
+        OrgMemberPage,
+        TeamMemberPage,
+        ProjectPage,
+      };
 
 
 // temp 
 import ThemeToggle from "../temp/ThemeToggle";
 export { 
   ThemeToggle,
-}
+};

@@ -6,6 +6,8 @@ import useResendOtp from "./auth/useResendOtp";
 import useSingUp from "./auth/useSingUp";
 import useGetResetPassOtp from "./auth/useGetResetOtp";
 import useResetPassword from "./auth/useResetPassword";
+import useUpadteUser from "./auth/useUpadteUser";
+import useOrg from "./Organization/useOrg";
 
 export {
     useLogin,
@@ -16,4 +18,6 @@ export {
     useSingUp,
     useGetResetPassOtp,
     useResetPassword,
+    useUpadteUser,
+    useOrg,
 }

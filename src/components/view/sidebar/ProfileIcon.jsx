@@ -22,7 +22,7 @@ const ProfileIcon = () => {
        { user && 
          <div
           onClick={()=>setShowProfilePopup(!showProfilePopup)} 
-          className={`${location.pathname.includes('profile') ? "bg-zinc-800 text-zinc-300 shadow-md dark:bg-zinc-200 dark:text-zinc-800" : "hover:bg-zinc-500/15"} p-1.5 rounded-md  flex gap-6 justify-between items-center`}>
+          className={`${location.pathname.includes('profile') ? "bg-zinc-800 text-zinc-300 shadow-md dark:bg-zinc-200 dark:text-zinc-800" : "hover:bg-zinc-500/15"} p-1.5 rounded  flex gap-6 justify-between items-center`}>
            <div className='flex gap-2.5 items-center'>
                <div className='flex items-center justify-center overflow-hidden w-7.5 h-7.5 bg-slate-200 dark:bg-zinc-950 rounded'>
                  {user.profilePhoto ? <img className='h-full w-full object-cover' src={user.profilePhoto} alt="" /> : <CiUser size={22}/>}

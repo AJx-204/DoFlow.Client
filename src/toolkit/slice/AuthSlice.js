@@ -30,9 +30,15 @@ const authSlice = createSlice({
         setAppLoading: (state, action) => {
             state.appLoading = action.payload;
         },
+        updateUserProfile(state, action) {
+          if (state.user) {
+            state.user.userName = action.payload.userName ?? state.user.userName;
+            state.user.profilePhoto = action.payload.profilePhoto ?? state.user.profilePhoto;
+          }
+        }
     }
 })
 
-export const { setUser, setAuthLoading, logoutUser, setErrorMessage, setResMessage, setAppLoading } = authSlice.actions;
+export const { setUser, setAuthLoading, logoutUser, setErrorMessage, setResMessage, setAppLoading,  updateUserProfile } = authSlice.actions;
 
 export default authSlice.reducer;

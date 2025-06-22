@@ -1,11 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { ChevronDown, Plus } from 'lucide-react'
-import { BlueBtn, useClickOutside } from '../../../global'
+import { DotLoader, Loader, useClickOutside, useOrgId } from '../../../global'
+import { LuSquareArrowOutDownRight } from "react-icons/lu";
   
 const OrgSelect = () => {
 
-  const { user } = useSelector(state => state.auth)
+  const { user } = useSelector(state => state.auth);
+
+  const { org, orgLoading } = useSelector(state => state.org)
+  
+  // const { setOrgId } = useOrgId();
 
   const [showOrgList, setShowOrgList] = useState(false);
   const orgListRef = useRef();
@@ -19,13 +24,20 @@ const OrgSelect = () => {
          className={`flex items-center justify-between gap-2 p-2 ${showOrgList ? "bg-zinc-500/20" : "hover:bg-zinc-500/20"} rounded-md w-[84%] overflow-hidden group smooth cursor-pointer`}>
           <div className='flex items-center gap-3 w-full overflow-hidden'>
             {user?.inOrg?.length > 0  ? (
-             <>
-              <div className='h-6.5 w-6.5 overflow-hidden rounded-md'>
-               <img className='h-full w-full object-cover' src={user?.inOrg[0]?.org.orgProfilePhoto} alt="" />
-              </div>
-              <span className='font-semibold truncate overflow-hidden whitespace-nowrap'>{user?.inOrg[0]?.org.orgName}</span>
-             </>
-            )  : (
+             orgLoading ? ( 
+              <Loader/>
+             ) :( !org ? (
+              <span className='text-[13px] text-blue-500 font-medium flex gap-2 items-center'><LuSquareArrowOutDownRight size={18}/> Select organizationg</span>
+             ) : (
+              <>
+                <div className='h-6.5 w-6.5 overflow-hidden rounded-md'>
+                 <img className='h-full w-full object-cover' src={org?.orgProfilePhoto} alt="" />
+                </div>
+                <span className='font-semibold truncate overflow-hidden whitespace-nowrap'>{org?.orgName}</span>
+              </>
+             )
+             )
+            ) : (
               <>
                 <Plus className='mt-0.5 group-hover:text-blue-500' size={18}/>
                  <span className='text-sm truncate'>Create Organization</span>
@@ -35,13 +47,14 @@ const OrgSelect = () => {
           <ChevronDown className={`opacity-0 ${showOrgList ? "opacity-100" : "group-hover:opacity-100"} smooth`} size={20}/>
         </div>
         {showOrgList && (
-          <div ref={orgListRef} className='text-sm p-3 absolute border left-2 mt-1 bg-white dark:bg-zinc-950 shadow-md border-zinc-500/30 rounded-md'>
+          <div ref={orgListRef} className='text-sm p-3 absolute border left-2 mt-1 bg-white dark:bg-zinc-950 shadow-md border-zinc-500/30 rounded-md z-100'>
             <p className='text-xs font-medium text-zinc-500 mb-2'>select organization</p>
+            {orgLoading && <div className='px-4 py-2'><DotLoader/></div>}
              {user?.inOrg?.length > 0 && (
-                user.inOrg.map((org)=>(
-                  <div key={org.org._id} className='p-2 w-[250px] rounded-md hover:bg-zinc-500/20 mt-1 flex items-center gap-3'>
-                     <img src={org.org.orgProfilePhoto} alt={org.org.orgName} className='h-6 w-6 rounded-md ' />
-                     <span className='truncate overflow-hidden whitespace-nowrap max-w-[200px]'>{org.org.orgName}</span>
+                user.inOrg.map((o)=>(
+                  <div onClick={()=> setOrgId(o.org._id)} key={o.org._id} className={`${org?._id == o.org._id ? "bg-zinc-500/20 text-black dark:text-white" : ""} cursor-pointer p-2 w-[250px] rounded-md hover:bg-zinc-500/20 mt-1 flex items-center gap-3`}>
+                     <img src={o.org.orgProfilePhoto} alt={o.org.orgName} className='h-6 w-6 rounded-md ' />
+                     <span className='truncate overflow-hidden whitespace-nowrap max-w-[200px]'>{o.org.orgName}</span>
                   </div>
                 ))
               )}

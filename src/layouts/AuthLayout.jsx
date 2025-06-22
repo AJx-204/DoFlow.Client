@@ -7,7 +7,7 @@ const AuthLayout = () => {
 
   return (
     <>
-      <main className='w-full min-h-scree bg-zinc-100 text-zinc-800 dark:bg-zinc-900 dark:text-zinc-200
+      <main className='w-full min-h-scree bg-zinc-100 text-zinc-800 dark:bg-zinc-900 dark:text-zinc-200 smooth
         bg-[linear-gradient(to_right,rgba(0,0,0,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.05)_1px,transparent_1px)] bg-[size:60px_60px]
         dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)]'>
           <Routes>

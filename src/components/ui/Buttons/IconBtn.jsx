@@ -5,7 +5,7 @@ import { RiInformationFill } from "react-icons/ri";
 const IconBtn = ({
     text='Information', 
     icon=<RiInformationFill size={18}/>,
-    gap='8px', 
+    gap='12px', 
     className='',
     onClick 
 }) => {

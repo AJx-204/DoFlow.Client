@@ -18,7 +18,8 @@ const Btn = ({
     selectLoader=1,
     loaderSize='size-4.5',
     onClick,
-    type=''
+    type='',
+    icon,
 }) => {
 
   const SelectedLoader = loaderMap[selectLoader] || loaderMap[1];
@@ -34,6 +35,7 @@ const Btn = ({
      className={`${isloading ? "opacity-40 cursor-not-allowed" : "cursor-pointer"} w-[max-content] flex items-center ${className}`}
      >
       {isloading && <SelectedLoader className={`animate-spin ${loaderSize}`}/>}
+      {icon}
       {text}
     </button>
   )
