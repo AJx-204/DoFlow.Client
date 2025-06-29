@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import { Route, Routes, useNavigate } from 'react-router-dom';
-import { AppLayout, AppLoader, Auth, AuthLayout, NotifierList, ThemeToggle, useGetUser } from './global';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { AppLayout, AppLoader, Auth, AuthLayout, NotifierList, useGetUser} from './global';
 import { useSelector } from 'react-redux';
 
 
@@ -10,13 +10,19 @@ const App = () => {
 
   const navigate = useNavigate();
 
-  const { user , appLoading } = useSelector(state => state.auth)
+  const location = useLocation();
+
+  const { appLoading } = useSelector(state => state.auth)
 
   useEffect(() => {
     const fetchUser = async () => {
       const success = await getUser();
-      if(success){
-        navigate(`/profile/${success}`)
+      if(!success){
+       <div className='flex items-center justify-center w-full h-screen bg-zinc-50 dark:bg-zinc-900'>
+        <AppLoader className='text-xl'/>
+      </div>
+      } else {
+        navigate(location)
       }
     };
     fetchUser();

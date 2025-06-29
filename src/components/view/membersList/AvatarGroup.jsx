@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AvatarGroup = ({ users = [], maxVisible = 5, className = '', size = 'md',  }) => {
+const AvatarGroup = ({ users = [], maxVisible = 5, className = '', size = 'md',  tooltip=true}) => {
   const visibleUsers = users.slice(0, maxVisible);
   const extraCount = users.length - maxVisible;
 
@@ -32,9 +32,9 @@ const AvatarGroup = ({ users = [], maxVisible = 5, className = '', size = 'md', 
           </div>
 
           {/* Tooltip */}
-          <div className="shadow-md absolute top-full mt-1 left-1/2 -translate-x-1/2 bg-zinc-900 text-zinc-200 dark:font-medium dark:bg-zinc-50 dark:text-zinc-800 text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 whitespace-nowrap">
+          {tooltip && <div className="shadow-md absolute top-full mt-1 left-1/2 -translate-x-1/2 bg-zinc-900 text-zinc-200 dark:font-medium dark:bg-zinc-50 dark:text-zinc-800 text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 whitespace-nowrap">
             {user.userName}
-          </div>
+          </div>}
         </div>
       ))}
 

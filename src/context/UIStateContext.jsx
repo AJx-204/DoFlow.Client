@@ -8,14 +8,24 @@ export const UIStateProvider = ({children}) => {
 
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [membersShowInList, setMembersShowInList] = useState(true)
+    const [taskShowInBoard, setTaskShowInBoard] = useState(false);
+    const [showTaskPage, setShowTaskPage] = useState(false);
+    const [showTaskComments ,setShowTaskComments] = useState(false);
+    const [showConformation, setShowConformation] = useState(false);
 
     const value = {
 
-       isSidebarOpen,
-       setIsSidebarOpen,
+       isSidebarOpen, setIsSidebarOpen,
 
-       membersShowInList,
-       setMembersShowInList,
+       membersShowInList, setMembersShowInList,
+
+       taskShowInBoard, setTaskShowInBoard,
+
+       showTaskPage, setShowTaskPage,
+
+       showTaskComments, setShowTaskComments,
+
+       showConformation, setShowConformation,
 
     }
 

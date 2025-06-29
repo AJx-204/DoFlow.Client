@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ChevronDown, Plus } from 'lucide-react'
-import { DotLoader, Loader, useClickOutside, useOrgId } from '../../../global'
+import { DotLoader, Loader, OrgUpdate, setOrg, setOrgErrorMessage, useClickOutside, useOrgId } from '../../../global'
 import { LuSquareArrowOutDownRight } from "react-icons/lu";
+import { useNavigate } from 'react-router-dom';
   
 const OrgSelect = () => {
 
@@ -10,15 +11,28 @@ const OrgSelect = () => {
 
   const { org, orgLoading } = useSelector(state => state.org)
   
-  // const { setOrgId } = useOrgId();
-
+  const [forCreation, setForCreation] = useState(false)
   const [showOrgList, setShowOrgList] = useState(false);
+
   const orgListRef = useRef();
- 
-  useClickOutside(orgListRef, ()=>setShowOrgList(false))
+
+  const { setOrgId } = useOrgId();
+  
+  const naviget = useNavigate();
+
+  const dispatch = useDispatch();
+
+  const handleOrgSelect = async (id) => {
+     if(id == org?._id){
+        naviget(`/${org.orgName}`)
+     }
+     setOrgId(id)
+  }
+
+  useClickOutside(orgListRef, ()=> setShowOrgList(false))
 
   return (
-    <div className='w-full p-1.5 border-b-2 border-zinc-500/10'>
+    <div onClick={() => dispatch(setOrgErrorMessage(''))} className='w-full p-1.5 border-b-2 border-zinc-500/10 h-[56px]'>
         <div
          onClick={()=> setShowOrgList(true)} 
          className={`flex items-center justify-between gap-2 p-2 ${showOrgList ? "bg-zinc-500/20" : "hover:bg-zinc-500/20"} rounded-md w-[84%] overflow-hidden group smooth cursor-pointer`}>
@@ -52,18 +66,19 @@ const OrgSelect = () => {
             {orgLoading && <div className='px-4 py-2'><DotLoader/></div>}
              {user?.inOrg?.length > 0 && (
                 user.inOrg.map((o)=>(
-                  <div onClick={()=> setOrgId(o.org._id)} key={o.org._id} className={`${org?._id == o.org._id ? "bg-zinc-500/20 text-black dark:text-white" : ""} cursor-pointer p-2 w-[250px] rounded-md hover:bg-zinc-500/20 mt-1 flex items-center gap-3`}>
+                  <div onClick={()=> handleOrgSelect(o.org._id)} key={o.org._id} className={`${org?._id == o.org._id ? "bg-zinc-500/20 text-black dark:text-white" : ""} cursor-pointer p-2 w-[250px] rounded-md hover:bg-zinc-500/20 mt-1 flex items-center gap-3`}>
                      <img src={o.org.orgProfilePhoto} alt={o.org.orgName} className='h-6 w-6 rounded-md ' />
                      <span className='truncate overflow-hidden whitespace-nowrap max-w-[200px]'>{o.org.orgName}</span>
                   </div>
                 ))
               )}
-              <div className='group p-2 w-[250px] rounded-md hover:bg-blue-500/20 hover:shadow opacity-50 hover:opacity-100 mt-1 flex gap-3 items-center '>
+              <div onClick={()=>(dispatch(setOrgErrorMessage('')) ,setForCreation(true))} className='group p-2 w-[250px] rounded-md hover:bg-blue-500/20 hover:shadow opacity-50 hover:opacity-100 mt-1 flex gap-3 items-center '>
                  <Plus className='ml-1 group-hover:text-blue-500' size={19}/>
                   <span>Create New Organization</span>
               </div>
           </div>
         )}
+        {forCreation && <OrgUpdate forCreation={forCreation} setForCreation={setForCreation}/>}
     </div>
   )
 }

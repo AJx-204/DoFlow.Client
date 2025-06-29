@@ -17,6 +17,13 @@ import UpdateUser from "./view/profile/UpdateUser";
 import TeamMenu from "./view/sidebar/TeamMenu";
 import ProjectMenu from "./view/sidebar/ProjectMenu";
 import AvatarGroup from "./view/membersList/AvatarGroup";
+import OrgTimeline from './view/topbar/OrgTimeline'
+import TeamTimeline from "./view/team/TeamTimeline";
+import ProjectSection from "./view/project/ProjectSection";
+import Task from "./view/project/Task";
+import Comments from "./view/task/Comments";
+import Conform from "./view/conform/Conform";
+import MemberProfilePopup from "./view/org/MemberProfilePopup";
 
 export {
     BlueBtn,
@@ -38,4 +45,11 @@ export {
     TeamMenu,
     ProjectMenu,
     AvatarGroup,
+    OrgTimeline,
+    TeamTimeline,
+    ProjectSection,
+    Task,
+    Comments,
+    Conform,
+    MemberProfilePopup,
 }

@@ -19,7 +19,7 @@ const useVerifyOtp = () => {
             if(res.data.data){
                 dispatch(setUser(res.data.data))
                 addMessage('Verify successfully !', 'success')
-                return true
+                return res?.data.data?.userName
             }
         } catch (error) {
             dispatch(setErrorMessage(error.response?.data?.message || 'Verification failed !'))

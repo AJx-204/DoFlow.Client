@@ -30,7 +30,7 @@ const TextArea = ({
        accept={accept}
        onChange={onChange}
        placeholder={placeholder}
-       className={` outline-0 ${inputClassName}`}
+       className={` min-h-10 max-h-28 outline-0 ${inputClassName}`}
        required={required}
        {...rest}
        />

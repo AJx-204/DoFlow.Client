@@ -15,7 +15,7 @@ const useGetUser = () => {
             });
             if(res.data){
                 dispatch(setUser(res.data.data))
-                return res.data?.data?.userName
+                return res.data.data.userName
             }
             return false
         } catch (error) {

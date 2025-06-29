@@ -60,7 +60,7 @@ const UpdateUser = ({setShowUpdateUserPopup}) => {
   }
 
   return (
-     <div
+    <div
      className='inter fixed top-0 left-0 w-screen h-screen bg-black/80 flex items-center justify-center z-100 shadow-md'
      >
      <div

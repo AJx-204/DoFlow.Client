@@ -17,7 +17,7 @@ export const  NotifierProvider = ({children}) => {
     }
   }, []);
 
-  const scheduleRemoval = (id, delay = 5000) => {
+  const scheduleRemoval = (id, delay = 3000) => {
     const timeout = setTimeout(() => {
       removeMessage(id);
     }, delay);
@@ -39,7 +39,7 @@ export const  NotifierProvider = ({children}) => {
   };
 
   const resumeTimer = (id) => {
-    scheduleRemoval(id, 2500);
+    scheduleRemoval(id, 1500);
   };
 
   const value = {

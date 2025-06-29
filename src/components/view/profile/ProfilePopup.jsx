@@ -7,7 +7,7 @@ import { Settings, Palette, LogOut } from 'lucide-react'
 
 const ProfilePopup = ({ setShowProfilePopup }) => {
 
-  const { user } = useSelector(state=> state.auth);
+  const { user, authLoading } = useSelector(state=> state.auth);
 
   const logout = useLogout();
 
@@ -55,6 +55,7 @@ const ProfilePopup = ({ setShowProfilePopup }) => {
       <div className='p-2 border-t-2 border-zinc-500/10'>
        <IconBtn
          onClick={()=>logout()}
+         isLoading={authLoading}
          icon={<LogOut className='rotate-180 text-zinc-500 group-hover:text-red-500 mt-0.5' strokeWidth={1.5} size={18}/>}
          text='Log-Out'
          className='p-2 w-full rounded-md hover:bg-red-500/10 hover:text-red-500 group'

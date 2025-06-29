@@ -36,25 +36,57 @@ export {
            Logo,
          };
    //view
+      //conform 
+        import { Conform } from '../components'
+        export {
+          Conform
+        }
       //membersList
         import { AvatarGroup } from '../components';
         export {
           AvatarGroup,
         }
+      //org
+        import { MemberProfilePopup } from "../components";
+        export { 
+          MemberProfilePopup,
+        }  
       //profile
          import { ProfilePopup, UpdateUser } from "../components";  
          export {
           ProfilePopup,
           UpdateUser,
          } ;
+      //project
+         import { ProjectSection } from '@/components'
+         import { Task } from '../components';
+         export {
+          ProjectSection,
+          Task,
+         }
       //sidebar
          import { OrgSelect, ProfileIcon, TeamMenu, ProjectMenu } from "../components";
-         export{
+         export {
            OrgSelect,
            ProfileIcon,
            TeamMenu,
            ProjectMenu,
          };
+      //task
+         import { Comments } from '../components';
+         export {
+          Comments
+         }
+      //team
+         import { TeamTimeline } from '../components';
+         export {
+          TeamTimeline,
+         }   
+      //TopBar
+         import { OrgTimeline } from '../components'
+         export {
+          OrgTimeline
+         }
       
 
 // context
@@ -76,6 +108,15 @@ export {
   useOrgId,
 };
 
+
+//Forms
+   //org
+      import OrgAddMember from '@/Forms/org/Org-AddMember';
+      import OrgUpdate from '@/Forms/org/Org-Update';
+      export {
+        OrgAddMember,
+        OrgUpdate
+      }
 
 // hooks 
    //auth
@@ -126,6 +167,20 @@ export {
           setAppLoading,
           updateUserProfile,
         };
+      //inviteSlice
+        import { setInvite, setInviteLoading, setInviteErrorMessage } from '../toolkit/slice/inviteSlice' 
+        export {
+          setInvite,
+          setInviteErrorMessage,
+          setInviteLoading,
+        } 
+      //memberSlice
+        import {  setMember, setMemberLoading, setMemberErrorMessage } from '../toolkit/slice/memberSlice'
+        export { 
+          setMember, 
+          setMemberLoading,
+          setMemberErrorMessage
+        }  
       //orgSlice
         import { setOrg, setOrgLoading, setOrgErrorMessage, setOrgResMessage } from "../toolkit/slice/orgSlice";
         export {
@@ -134,15 +189,25 @@ export {
           setOrgErrorMessage,
           setOrgResMessage,
         };
-      //teamSlice
-        import { setTeam } from '@/toolkit/slice/teamSlice';
+      //p-sectionSlice
+        import { setSection } from'@/toolkit/slice/p-sectionSlice'
         export {
-          setTeam,
-        };
+           setSection,
+        }
       //projectSlice
         import { setProject } from "@/toolkit/slice/projectSlice";
         export {
           setProject,
+        };
+      //taskSlice
+         import { setTask } from '@/toolkit/slice//taskSlice' 
+         export { 
+          setTask
+         } 
+      //teamSlice
+        import { setTeam } from '@/toolkit/slice/teamSlice';
+        export {
+          setTeam,
         };
 import store from '../toolkit/store'
 export {
@@ -155,11 +220,13 @@ import { useHotkey } from '../utils/ShortCuts';
 import { useClickOutside } from '../utils/ClickOutSied'
 import { GetRoleColor } from '../utils/GetRoleColor'
 import { formatDate } from '../utils/formatDate'
+import { GetPriorityColor } from '@/utils/GetPriorityColor'
 export {
   useHotkey,
   useClickOutside,
   GetRoleColor,
   formatDate,
+   GetPriorityColor,
 };
 
 
@@ -189,16 +256,23 @@ export {
       import OrgMemberPage from '@/views/pages/OrgMemberPage'; 
       import TeamMemberPage from '@/views/pages/TeamMemberPage';
       import ProjectPage from '@/views/pages/ProjectPage';
+      import OrgPage from '@/views/pages/OrgPage';
+      import Invite from '@/views/pages/Invite';
+      import AcceptInvite from '@/views/pages/acceptInvite';
       export {
         ProfilePage,
         OrgMemberPage,
         TeamMemberPage,
         ProjectPage,
+        OrgPage,
+        Invite,
+        AcceptInvite
       };
 
 
 // temp 
 import ThemeToggle from "../temp/ThemeToggle";
+import { fromHalfFloat } from 'three/src/extras/DataUtils';
 export { 
   ThemeToggle,
 };

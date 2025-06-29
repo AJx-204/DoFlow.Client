@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const SingUp = () => {
 
-  const { authLoading } = useSelector(state => state.auth)
+  const { authLoading, errorMessage } = useSelector(state => state.auth)
 
   const { register, handleSubmit, setValue, trigger, formState:{errors} } = useForm();
   const [previewUrl, setPreviewUrl] = useState(null);
@@ -141,6 +141,9 @@ const SingUp = () => {
                    {errors.password.message}
                   </span>
                 }
+                 {errorMessage && (
+                  <span className='text-red-500 text-xs'>{errorMessage}</span>
+                 )}
                  <div className='flex items-center justify-center mt-5'>
                    <BlueBtn isLoading={authLoading} className='apple' text='Sing-Up'/>
                  </div>

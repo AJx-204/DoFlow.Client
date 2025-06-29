@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
-import { Btn, formatDate, GetRoleColor, useUIState } from '@/global';
+import { Btn, formatDate, GetRoleColor, TeamTimeline, useUIState } from '@/global';
 import { TbUserPlus } from 'react-icons/tb';
 import { Search } from 'lucide-react';
 
@@ -25,15 +25,18 @@ const TeamMemberPage = () => {
   return (
     <>
     <div className='flex flex-col'>
-      <div className='flex justify-between px-4 py-2 items-center'>
-         <div className='font-medium'>{team ? `Team - ${team.teamName}'s Members`: "Not any Organization selected"}</div>
-          <Btn 
+      <div className='flex justify-between px-4 py-3 items-center'>
+         <div className='font-medium flex gap-2 items-center'> 
+           <TeamTimeline/>
+            {team ? `Team - ${team.teamName}'s Members`: "Not any Organization selected"}
+         </div>
+         <Btn 
            text='Add Member'
            icon={< TbUserPlus  size={16}/>}
            className='px-3 py-2 rounded-md bg-zinc-500/10 hover:text-blue-500 hover:bg-blue-500/20 text-xs font-medium smooth' 
           />
       </div>
-       <div className="flex flex-wrap justify-between items-center border-y-2 border-zinc-500/10 px-4 py-1 gap-2">
+       <div className="flex flex-wrap justify-between items-center border-y-2 border-zinc-500/10 px-4 py-1.5 gap-2">
         <div className="flex flex-wrap gap-1">
           {roles.map((role) => (
             <button
@@ -41,7 +44,7 @@ const TeamMemberPage = () => {
               onClick={() => setActiveRole(role)}
               className={`capitalize px-3 py-1.5 rounded text-sm ${
                 activeRole === role
-                  ? 'bg-zinc-800 text-zinc-200 dark:bg-zinc-200 dark:text-zinc-800'
+                  ? 'bg-zinc-500/20 shadow'
                   : 'hover:bg-zinc-500/20'
               }`}
             >
@@ -53,7 +56,7 @@ const TeamMemberPage = () => {
            <Search size={14}/>
            <input
             type="text"
-            placeholder="Search member..."
+            placeholder={`Search ${activeRole} . . . `}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className='outline-0'
@@ -61,7 +64,7 @@ const TeamMemberPage = () => {
         </div>
       </div>
        {membersShowInList ? (
-         <div className="overflow-x-auto p-4">
+         <div className="overflow-x-auto md:p-4 p-2 hide-scrollbar">
          {filteredMembers.length > 0 ? (
            <table className="min-w-full text-sm text-left border border-zinc-500/10">
              <thead className="bg-zinc-100  dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 uppercase text-xs font-medium smooth">
@@ -105,7 +108,7 @@ const TeamMemberPage = () => {
            <div className="text-sm text-zinc-400 italic mt-10 text-center">No members found.</div>
          )}
        </div>
-       ) : (  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 p-3">
+       ) : (  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 p-2 md:p-4">
          {filteredMembers.length > 0 ? (
            filteredMembers.map(({ member, role, joinedAt, _id }) => (
              <div

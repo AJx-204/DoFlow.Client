@@ -17,7 +17,7 @@ const ProjectMenu = () => {
 
   return (
    <div className='flex flex-col gap-1'>
-      <div className='flex items-center cursor-pointer justify-between text-xs text-zinc-500 font-medium rounded p-3 hover:bg-zinc-500/20 group smooth'>
+      <div className='flex items-center cursor-pointer justify-between text-xs text-zinc-500 font-medium rounded p-2 hover:bg-zinc-500/20 group smooth'>
         <IconBtn 
          text='Projects' 
          icon={<GoProjectSymlink size={16}/>}

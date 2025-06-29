@@ -1,31 +1,32 @@
 import { createContext, useState, useContext, useEffect } from 'react'
 import { useOrg } from '@/global';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const OrgIdContext = createContext();
 
 export const OrgIdProvider = ({children}) => {
 
-    const { user } = useSelector(state => state.auth)
+    const naviget = useNavigate();
 
-    const {  getOrg } = useOrg();
+    const { getOrg } = useOrg();
+
     const [ orgId, setOrgId ] = useState(localStorage.getItem('orgId') || null);
+  
+   useEffect(() => {
+     const getOrgData = async () => {
+       if (orgId) {
+        const success = await getOrg(orgId);
+        localStorage.setItem("orgId", success)
+       }
+     };
+     getOrgData();
+   }, [orgId]);
 
-    const value = {
+     const value = {
         orgId,
         setOrgId
     };
-
-    useEffect(()=>{
-        if (orgId) {
-          getOrg(orgId);
-          localStorage.setItem('orgId', orgId);
-        } else if(user) {
-          setOrgId(user?.inOrg[0]?.org._id)
-          localStorage.setItem('orgId', orgId);
-           
-        }
-    },[orgId])  
 
     return (
         <OrgIdContext.Provider value={value}>
@@ -36,5 +37,5 @@ export const OrgIdProvider = ({children}) => {
 };
 
 export function useOrgId(){
-    return useContext(OrgIdContext)
+  return useContext(OrgIdContext);
 }

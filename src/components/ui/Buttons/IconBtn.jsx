@@ -1,3 +1,4 @@
+import { Loader } from 'lucide-react';
 import React from 'react'
 import { RiInformationFill } from "react-icons/ri";
 
@@ -7,7 +8,8 @@ const IconBtn = ({
     icon=<RiInformationFill size={18}/>,
     gap='12px', 
     className='',
-    onClick 
+    onClick,
+    isLoading
 }) => {
 
   return (
@@ -16,8 +18,10 @@ const IconBtn = ({
       style={{
         gap:`${gap}`
       }}
-      className={`cursor-pointer flex items-center ${className}`}
+      disabled={isLoading}
+      className={`${isLoading ? "opacity-40 cursor-not-allowed" : ""} cursor-pointer flex items-center ${className}`}
       >
+        {isLoading && <Loader className='animate-spin'/>}
         {icon}
         {text}
     </button>

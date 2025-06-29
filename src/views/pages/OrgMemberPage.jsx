@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux';
-import { Btn, formatDate, GetRoleColor,  useUIState } from '@/global';
+import { useDispatch, useSelector } from 'react-redux';
+import { Btn, formatDate, GetRoleColor,  MemberProfilePopup,  OrgAddMember,  setMember,  setMemberErrorMessage,  useUIState } from '@/global';
 import { TbUserPlus } from "react-icons/tb";
 import { Search } from 'lucide-react'
+import { HiDotsHorizontal } from "react-icons/hi";
 
 const roles = ['all', 'admin', 'moderator', 'leader', 'member', 'viewer'];
 
@@ -13,8 +14,13 @@ const OrgMemberPage = () => {
 
   const { membersShowInList } = useUIState();
 
+  const dispatch = useDispatch();
+
   const [activeRole, setActiveRole] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
+
+  const [showInviteForm, setShowInviteForm] = useState(false);
+  const [showMemberProfile, setShowMemberProfile] = useState(false)
 
   const filteredMembers = org?.members?.filter(({ member, role }) => {
     const matchesRole = activeRole === 'all' || role === activeRole;
@@ -25,23 +31,24 @@ const OrgMemberPage = () => {
   return (
     <>
     <div className='flex flex-col'>
-      <div className='flex justify-between items-center px-4 py-2'>
+      <div className='flex justify-between items-center px-4 py-3'>
         <div className='font-medium '>{org ? `${org.orgName}'s Members`: "Not any Organization selected"}</div>
          <Btn 
+          onClick={()=>(setShowInviteForm(true), dispatch(setMemberErrorMessage('')))}
           text='Invite Member'
           icon={< TbUserPlus  size={16}/>}
           className='px-3 py-2 rounded-md bg-zinc-500/10 hover:text-blue-500 hover:bg-blue-500/20 text-xs font-medium smooth' 
           />
       </div>
-     <div className="flex flex-wrap justify-between items-center border-y-2 border-zinc-500/10 px-4 py-1 gap-2">
+     <div className="flex flex-wrap justify-between items-center border-y-2 border-zinc-500/10 px-4 py-1.5 gap-2">
         <div className="flex flex-wrap gap-1">
           {roles.map((role) => (
             <button
               key={role}
               onClick={() => setActiveRole(role)}
-              className={`capitalize px-3 py-1.5 rounded text-sm ${
+              className={`capitalize px-3 py-1.5 rounded text-sm cursor-pointer ${
                 activeRole === role
-                  ? 'bg-zinc-800 text-zinc-200 dark:bg-zinc-200 dark:text-zinc-800'
+                  ? 'bg-zinc-500/20 shadow'
                   : 'hover:bg-zinc-500/20'
               }`}
             >
@@ -53,7 +60,7 @@ const OrgMemberPage = () => {
            <Search size={14}/>
            <input
             type="text"
-            placeholder="Search member..."
+            placeholder={`Search ${activeRole} . . . `}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className='outline-0'
@@ -61,7 +68,7 @@ const OrgMemberPage = () => {
         </div>
       </div>
       {membersShowInList ? (
-        <div className="overflow-x-auto p-4">
+        <div className="overflow-x-auto p-2 hide-scrollbar md:p-4">
         {filteredMembers.length > 0 ? (
           <table className="min-w-full text-sm text-left border border-zinc-500/10">
             <thead className="bg-zinc-100  dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 uppercase text-xs font-medium smooth">
@@ -70,6 +77,7 @@ const OrgMemberPage = () => {
                 <th className="px-4 py-3">Email</th>
                 <th className="px-4 py-3">Role</th>
                 <th className="px-4 py-3">Joined At</th>
+                <th className='px-2 py-3'>Edite</th>
               </tr>
             </thead>
             <tbody>
@@ -97,6 +105,10 @@ const OrgMemberPage = () => {
                     </span>
                   </td>
                   <td className="px-4 py-2 text-zinc-500 text-xs italic">{formatDate(joinedAt)}</td>
+                  <td onClick={() =>(dispatch(setMember({
+                    member,
+                    role
+                  })), setShowMemberProfile(true))} className='p-2 hover:text-blue-500 cursor-pointer'><HiDotsHorizontal/></td>
                 </tr>
               ))}
             </tbody>
@@ -105,7 +117,7 @@ const OrgMemberPage = () => {
           <div className="text-sm text-zinc-400 italic mt-10 text-center">No members found.</div>
         )}
       </div>
-      ) : ( <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 p-3">
+      ) : ( <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 p-2 md:p-4">
         {filteredMembers.length > 0 ? (
           filteredMembers.map(({ member, role, joinedAt, _id }) => (
             <div
@@ -114,12 +126,16 @@ const OrgMemberPage = () => {
                 role
               )}`}
             >
-              <div className="w-full flex justify-start mb-2">
+              <div className="w-full flex justify-between items-center mb-2">
                 <span
                   className={`text-[10px] font-semibold px-2 py-0.5 rounded border ${GetRoleColor(role)}`}
                 >
                   {role}
                 </span>
+                <i onClick={() =>(dispatch(setMember({
+                  member,
+                  role
+                })), setShowMemberProfile(true))} className='p-1 hover:text-blue-500 cursor-pointer'><HiDotsHorizontal/></i>
               </div>
               <img
                 src={member?.profilePhoto}
@@ -147,6 +163,8 @@ const OrgMemberPage = () => {
           <div className="text-sm text-zinc-400 italic mt-10">No members found.</div>
         )}
       </div>)}
+      { showInviteForm && <OrgAddMember setShowInviteForm={setShowInviteForm}/>}
+      { showMemberProfile && <MemberProfilePopup setShowMemberProfile={setShowMemberProfile}/>}
     </div>
     </>
   );

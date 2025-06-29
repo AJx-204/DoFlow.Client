@@ -17,7 +17,7 @@ const useLogin = () => {
                 dispatch(setUser(res.data.data))
                 addMessage('Login successfuly !', 'success')
                 return {
-                    success:true
+                    success: res?.data.data?.userName
                 }
             }
             addMessage('Login failed !', 'error')

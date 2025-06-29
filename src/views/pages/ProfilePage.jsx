@@ -11,7 +11,7 @@ import { BsFillUnlockFill } from "react-icons/bs";
 import { BsArrowCounterclockwise } from "react-icons/bs";
 import { CgDanger } from "react-icons/cg";
 import { CiUser } from 'react-icons/ci';
-import { FiEdit } from "react-icons/fi";
+import { RiEdit2Fill } from "react-icons/ri";
 import { GoProjectSymlink } from "react-icons/go";
 import { useNavigate } from 'react-router-dom';
 
@@ -33,7 +33,7 @@ const ProfilePage = () => {
        <div className='flex flex-col gap-8'>
         {/* profile info */}
           <div className='flex flex-col gap-2'>
-             <div
+          <div
           className='flex gap-10'
           >
            <div className='flex items-center justify-center overflow-hidden w-20 h-20 bg-slate-200 dark:bg-zinc-950 rounded-full -ml-1'>
@@ -41,7 +41,7 @@ const ProfilePage = () => {
            </div>
            <i onClick={()=>setShowUpdateUserPopup(true)}
             className='self-end p-1 mb-1 bg-zinc-500/10 rounded hover:text-blue-500 text-zinc-500 hover:border-blue-500/40 border border-zinc-500/15'>
-              <FiEdit/>
+              <RiEdit2Fill/>
            </i>
          </div>
              <div className='flex flex-col'>

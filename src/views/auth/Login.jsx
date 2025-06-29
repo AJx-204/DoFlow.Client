@@ -23,7 +23,7 @@ const Login = () => {
   const handleLogin = async (data) => {
       const result = await Login(data);
       if(result.success){
-        navigate('/')
+        navigate(`/profile/${result.success}`)
         dispatch(setErrorMessage(null))
       } else if(result.redirectToVerify){
         const email = result.userEmail

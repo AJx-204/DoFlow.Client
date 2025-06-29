@@ -1,5 +1,5 @@
 import React from 'react'
-import { OrgMemberPage, ProfilePage, SideBar, TeamMemberPage, TopBar, useUIState, ProjectPage } from '@/global'
+import { OrgMemberPage, ProfilePage, SideBar, TeamMemberPage, TopBar, useUIState, ProjectPage, OrgPage, Invite,  AcceptInvite} from '@/global'
 import { Route, Routes } from 'react-router-dom';
 
 const AppLayout = () => {
@@ -8,8 +8,8 @@ const AppLayout = () => {
 
   return (
     <>
-      <main className='flex w-full min-h-screen bg-zinc-50 text-zinc-800 dark:bg-[#212121] dark:text-zinc-200 smooth'>
-         <div className={`flex fixed left-0 top-0 z-90`}>
+      <main className='flex w-full min-h-screen bg-white text-zinc-800 dark:bg-[#212121] dark:text-zinc-200 smooth'>
+         <div className={`w-full flex fixed left-0 top-0 z-80`}>
            <SideBar />
            <TopBar/>
          </div>
@@ -19,6 +19,9 @@ const AppLayout = () => {
                <Route path='/:orgName/Members' element={<OrgMemberPage/>}/>
                <Route path ='/:orgName/:teamName/:teamId/team-members' element={<TeamMemberPage/>}/>
                <Route path ='/:orgName/:projectName/:projectId/project' element={<ProjectPage/>}/>
+               <Route path ='/:orgName' element={<OrgPage/>}/>
+               <Route path='/invite'element={<Invite/>}/>
+               <Route path='/invite/accept/:inviteId'element={<AcceptInvite/>}/>
             </Routes>
          </div>
       </main>

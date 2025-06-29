@@ -24,7 +24,7 @@ const Otp = () => {
       e.preventDefault();
      const success = await verifyOtp(otp, user?.userEmail)
      if(success){
-       navigate('/')
+       navigate(`/profile/${success}`)
        dispatch(setErrorMessage(null))
      }
   };

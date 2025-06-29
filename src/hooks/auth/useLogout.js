@@ -7,7 +7,7 @@ const backendUrl = import.meta.env.VITE_BACKEND_URL;
 const useLogout = () => {
     const dispatch = useDispatch();
     const { addMessage } = useNotifier();
-    // const { setOrgId } = useOrgId();
+    const { setOrgId } = useOrgId();
     const logout = async () => {
         dispatch(setAuthLoading(true))
         try {
@@ -15,11 +15,12 @@ const useLogout = () => {
                 withCredentials: true
             });
             if(res.data){
-                dispatch(setUser(null))
                 addMessage('Logout successfuly !', 'success')
                 localStorage.removeItem('orgId')
+                localStorage.removeItem('lastVisitedRoute');
                 setOrgId(null)
                 dispatch(setOrg(null))
+                dispatch(setUser(null))
                 return true;
             }
             addMessage('Logout failed !', 'error')
